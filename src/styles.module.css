@@ -2,29 +2,51 @@
 
 .autocomplete {
   position: relative;
-  display: inline-block;
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  
+  font-size: 16px;
+
 }
 
-.autocomplete > input {
+.autocomplete > div > input {
   border: 1px solid transparent;
   background-color: #f1f1f1;
   padding: 10px;
   font-size: 16px;
 }
 
-.autocomplete > input[type=text] {
+.autocomplete > div > input:focus-visible {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+}
+
+.autocomplete > div > input:focus {
+  outline: none;
+}
+
+.autocomplete >  div > input[type=text] {
   background-color: #f1f1f1;
   width: 100%;
 }
 
-.autocomplete > input[type=submit] {
+.autocomplete > div > input[type=submit] {
   background-color: DodgerBlue;
   color: #fff;
   cursor: pointer;
 }
 
-.autocomplete > .autocompleteitems {
-  position: absolute;
+.autocomplete > div > .autocompleteitems {
+  position:absolute;
   border: 1px solid #d4d4d4;
   border-bottom: none;
   border-top: none;
@@ -35,7 +57,7 @@
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-.autocomplete > .autocompleteitems div {
+.autocomplete > div > .autocompleteitems div {
   padding: 10px;
   cursor: pointer;
   background-color: #fff; 
@@ -43,11 +65,11 @@
 }
 
 
-.autocomplete > .autocompleteitems div:hover {
+.autocomplete > div > .autocompleteitems div:hover {
   background-color: #e9e9e9; 
 }
 
-.autocomplete > .autocompleteactive {
+.autocomplete > div > .autocompleteactive {
   background-color: DodgerBlue !important; 
   color: #ffffff; 
 }

@@ -59,13 +59,15 @@ export const MyAutocompleteTag = (props) => {
   return (
     <React.Fragment>
       <div className={styles.autocomplete}>
-        <input type='text' name='myCountry' placeholder={props.placeholder} onKeyUp={handleKeyUp} onChange={handleChange} value={inputText}></input>
-        {showDropdown?<div className={styles.autocompleteitems}>
-          {dropDownLst.map((item, index) => (
-            <div key={index} data-id="myautocompletetagitem" data-value={item}>{item}</div>
-          ))}
-        </div>:''
-        }
+        <div style={{position: 'relative',  marginLeft: '40px'}}>
+          <input type='text' name='myCountry' placeholder={props.placeholder} onKeyUp={handleKeyUp} onChange={handleChange} value={inputText}></input>
+          {showDropdown?<div className={styles.autocompleteitems}>
+            {dropDownLst.map((item, index) => (
+              <div key={index} data-id="myautocompletetagitem" data-value={item}>{item}</div>
+            ))}
+          </div>:''
+          }
+        </div>
       </div>
     </React.Fragment>
   )

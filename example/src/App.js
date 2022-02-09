@@ -12,7 +12,9 @@ const App = () => {
       'Hyundai - Sonata', 'Hyundai - Tucson', 
       'Ford - Mustang', 'Ford - GT']}
   return(<>
-    <MyAutocompleteTag placeholder="Car" autocompleteapi={autoCompleteApi} />
+    <div className="container">
+      <MyAutocompleteTag placeholder="Car" autocompleteapi={autoCompleteApi} />
+    </div>
     </>)   
 }
 
