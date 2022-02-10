@@ -49,5 +49,14 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "react", 
+    "react-component",
+    "react tags",
+    "tag input",
+    "autosuggest",
+    "react dropdown",    
+    "autocomplete"
   ]
 }
