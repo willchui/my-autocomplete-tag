@@ -1,7 +1,7 @@
 {
   "name": "@willchui/my-autocomplete-tag",
   "version": "1.0.0",
-  "description": "MyAutocompleteTag is a simple tagging componenet with autocomplete function.",
+  "description": "MyAutocompleteTag is a tagging componenet with autocomplete function.",
   "author": "willchui",
   "license": "MIT",
   "repository": "willchui/my-autocomplete-tag",

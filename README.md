@@ -99,7 +99,7 @@ const App = () => {
 
 ## MyBootstrapTable Demo
 
-Quick Demo in <a href="https://stackblitz.com/edit/react-mybootstrap-table-demo?file=src%2FApp.js">Stackblitz MyAutocompleteTag</a>.
+Quick Demo in <a href="https://stackblitz.com/edit/react-myautocompletetag-demo?file=src/App.js">Stackblitz - MyAutocompleteTag</a>.
 
 ## License
 
