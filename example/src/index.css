@@ -15,7 +15,26 @@ code {
 
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 10px;
-  width: 400px;
+}
+
+.myprefix {
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px 30px 5px 10px;
+  font-size: 14px;
+  color:white;
+  position:relative;
+  background-color: rgba(255, 0, 0, 0.651);
+}
+
+hr {
+  border: 0;
+	border-top: 1px solid #CCC;
+  margin: 10px 0px 0px 0px;
+}
+
+label {
+  margin-bottom: 10px;
 }
