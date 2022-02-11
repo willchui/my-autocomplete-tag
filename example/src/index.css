@@ -22,10 +22,12 @@ code {
 .myprefix {
   border-radius: 5px;
   margin: 5px;
-  padding: 5px 30px 5px 10px;
+  padding: 5px 10px 5px 15px;
   font-size: 14px;
-  color:white;
-  position:relative;
+  color: white;
+  position: relative;
+  display: flex;
+  align-items: center;
   background-color: rgba(255, 0, 0, 0.651);
 }
 

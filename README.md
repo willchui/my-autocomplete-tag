@@ -97,9 +97,11 @@ const App = () => {
     
 </tbody></table>
 
-## MyBootstrapTable Demo
+## MyAutocompleteTag Demo
 
 Quick Demo in <a href="https://stackblitz.com/edit/react-myautocompletetag-demo?file=src/App.js">Stackblitz - MyAutocompleteTag</a>.
+
+![Alt text](/demo.jpg?raw=true "Demo image")
 
 ## License
 
