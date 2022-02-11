@@ -1,18 +1,46 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
-import React, { useEffect, useState, Fragment , useRef} from 'react'
+import React, { useEffect, useState, Fragment , useRef, useReducer} from 'react'
 import styles from './styles.module.css'
 
 export const MyAutocompleteTag = (props) => {
   const [inputText, setInputText] = useState();
   const [dropDownList, setDropDownList] = useState([]);
-  const [tagList, setTagList] = useState([]);
+
+  /** const [tagList, setTagList] = useState([]); */
+ 
   const [showDropdown, setShowDropdown] = useState(false);
   const [currentFocus, setcurrentFocus] = useState(-1);
   const inputBox = useRef(null);
+  const [tagList, dispatchTag] = useReducer((results, itemPick) =>{
+    let newList = [];
+    switch(itemPick.type) {
+      case 'add': {
+       newList = [...results, {
+          title: itemPick.title, 
+          prefix: itemPick.prefix
+        }];
+        setInputText("");
+        setShowDropdown(false); 
+        if(props.tagListChange)
+          props.tagListChange(newList);
+        return newList;
+      }
+      case 'remove': {
+        newList = results.filter((_, index) => index !== itemPick.index);     
+        if(props.tagListChange)
+          props.tagListChange(newList);
+        return newList;
+      }
+      default:
+         return results;
+    }    
+  }, []);
+ 
 
   const handleInputKeyUp = (e) => {
-    if (props.autocompleteapi && props.autocompleteapi.enableDropdown) {
+    let pf = styles.mytag;
+    if (props.autocompleteapi && props.autocompleteapi.enableDropdown) {      
       const value = e.target.value.toString().toUpperCase().trim();
       const list = props.autocompleteapi.dropdown.filter(
         (item) => item.title.toString().toUpperCase().indexOf(value) > -1
@@ -25,22 +53,22 @@ export const MyAutocompleteTag = (props) => {
       }
 
       if ((e.key === 'Enter' || e.keyCode === 13) ) {
-         let pf = styles.mytag;
-         if(currentFocus >= 0 ) {           
+         if(currentFocus >= 0 ) {      
             if(list[currentFocus].tagPrefix)
               pf = list[currentFocus].tagPrefix;
             else if(props.tagPrefix) {
               pf = props.tagPrefix;
             }
-            addTagByDropdown(list[currentFocus].title, pf);    
+            dispatchTag({type:'add', title: list[currentFocus].title, prefix: pf}) 
          }
          else if(!props.autocompleteapi.fromDropdownOnly) {
           if(props.tagPrefix) {
             pf = props.tagPrefix;
           }
-          addTagByDropdown(e.target.value.toString(), pf);    
+          if(e.target.value.toString().trim() !== '') {
+            dispatchTag({type:'add', title: e.target.value.toString(), prefix: pf}) 
+          }
          }
-         setShowDropdown(false);
       }
       else if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.keyCode === 40 || e.keyCode === 38) {
         let cf = currentFocus;
@@ -62,55 +90,18 @@ export const MyAutocompleteTag = (props) => {
       }
     }
     else {
-      if (e.key === 'Enter' || e.keyCode === 13) {
-        addTagByTextInput(e.target.value);
+      if ((e.key === 'Enter' || e.keyCode === 13) && (e.target.value.toString().trim() !== '')) {
+          if(props.tagPrefix)
+             pf = props.tagPrefix;
+          dispatchTag({type:'add', title: e.target.value, prefix: pf});
+
       }
     }
-  }
-
-  const addTagByTextInput = (title) =>{
-    let pf = styles.mytag;
-    if(props.tagPrefix)
-       pf = props.tagPrefix;
-
-    tagList.push({title: title, prefix: pf});
-    setTagList([...tagList]);
-    setInputText("");
-    if(props.tagListChange)
-      props.tagListChange(tagList);
-  }
-
-  const addTagByDropdown = (title, prefix) => {
-    tagList.push({title: title, prefix: prefix});
-    setTagList([...tagList]);
-    setInputText("");
-    if(props.tagListChange)
-      props.tagListChange(tagList);
-  }
-
-  const removeTag = (index) =>{
-    tagList.splice(index, 1);
-    setTagList([...tagList]);
-    if(props.tagListChange)
-      props.tagListChange(tagList);
   }
 
   const handleInputChange = (e) => {
     setcurrentFocus(-1);
     setInputText(e.target.value);
-  }
-
-  const clickDropdown = (e) =>{
-    if(e.target.dataset.value){
-       addTagByDropdown(e.target.dataset.value, e.target.dataset.prefix);
-    }       
-    setShowDropdown(false);    
-  }
-
-  const closeTag = (e)=>{
-    if(e.target.dataset.value){
-      removeTag(e.target.dataset.value)
-    }  
   }
 
   const handleFocus = (e) =>{
@@ -129,7 +120,7 @@ export const MyAutocompleteTag = (props) => {
       <div className={styles.autocomplete} onClick={handleFocus}>
         {
           tagList.map((item, index)=>(
-            <label className={item.prefix} key={index}>{item.title}<span data-value={index} onClick={closeTag} className={styles.close}>&times;</span></label>
+            <label className={item.prefix} key={index}>{item.title}<span data-value={index} onClick={()=>dispatchTag({type: 'remove', index})} className={styles.close}>&times;</span></label>
           ))
         }
         <div className={styles.inputarea}  style={{position: 'relative'}}>
@@ -138,9 +129,9 @@ export const MyAutocompleteTag = (props) => {
             {dropDownList.map((item, index) => (
               <div key={index} 
                    className={`${currentFocus===index?styles.autocompleteactive:''}`}
-                   data-value={item.title}
-                   onClick={clickDropdown}
-                   data-prefix={`${item.tagPrefix?item.tagPrefix:(props.tagPrefix?props.tagPrefix:styles.mytag)}`}>{item.title}</div>
+                   onClick={()=>{dispatchTag({type: 'add', title: item.title,
+                   prefix: `${item.tagPrefix?item.tagPrefix:(props.tagPrefix?props.tagPrefix:styles.mytag)}`})}}
+                   >{item.title}</div>
             ))}
           </div>:''
           }
