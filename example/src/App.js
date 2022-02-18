@@ -36,7 +36,7 @@ const App = () => {
   return(<>
     <div className="container">
       <label>Sample 1 (Default without Autocomplete): </label>
-      <MyAutocompleteTag placeholder="Enter your favorite car 1" tagListChange={handleCallback}/>
+      <MyAutocompleteTag placeholder="Enter your favorite car 1" tagListChange={handleCallback} duplicate={false}/>
       <hr />
       <label>Sample 2 (Custom tag css without Autocomplete): </label>
       <MyAutocompleteTag placeholder="Enter your favorite car 2" tagPrefix={"myprefix"} tagListChange={handleCallback}/>

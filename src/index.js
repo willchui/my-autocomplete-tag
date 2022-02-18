@@ -16,7 +16,6 @@ export const MyAutocompleteTag = (props) => {
     let newList = [];
     switch(itemPick.type) {
       case 'add': {
-        debugger;
         if(!props.duplicate) {
           const checkary = results.map((x, i)=> x.title);
           if(checkary.indexOf(itemPick.title) > -1) {
@@ -24,10 +23,12 @@ export const MyAutocompleteTag = (props) => {
               props.tagListChange(results, "duplicate", itemPick);
             return results;
           }
-          const dropdown = props.autocompleteapi.dropdown.map((x, i) => x.title);
-          const pos = dropdown.indexOf(itemPick.title);
-          if(pos > -1) {
-            props.autocompleteapi.dropdown.splice(pos, 1); 
+          if(props.autocompleteapi && props.autocompleteapi.dropdown) {
+            const dropdown = props.autocompleteapi.dropdown.map((x, i) => x.title);
+            const pos = dropdown.indexOf(itemPick.title);
+            if(pos > -1) {
+              props.autocompleteapi.dropdown.splice(pos, 1); 
+            }
           }
         }
        newList = [...results, itemPick];
