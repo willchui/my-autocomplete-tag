@@ -3,8 +3,10 @@ import { MyAutocompleteTag } from '@willchui/my-autocomplete-tag'
 import '@willchui/my-autocomplete-tag/dist/index.css'
 
 const App = () => {
-  const handleCallback = (tagsList) =>{
+  const handleCallback = (tagsList, msg, item) =>{
     console.log(JSON.stringify(tagsList));
+    console.log(msg);
+    console.log(JSON.stringify(item));
   }
   const dropdownlist = [
     {title:'Toyota RAV4'},
@@ -22,13 +24,13 @@ const App = () => {
   const sample3 = {
     'enableDropdown': true, 
     'fromDropdownOnly': true,
-    'dropdown': dropdownlist
+    'dropdown': dropdownlist,
   };
 
   const sample4 = {
     'enableDropdown': true, 
     'fromDropdownOnly': false,
-    'dropdown': dropdownlist
+    'dropdown': dropdownlist,
   };  
 
   return(<>
@@ -40,10 +42,10 @@ const App = () => {
       <MyAutocompleteTag placeholder="Enter your favorite car 2" tagPrefix={"myprefix"} tagListChange={handleCallback}/>
       <hr />
       <label>Sample 3 (Create a tag from autocomplete dropdown only): </label>
-      <MyAutocompleteTag placeholder="Type 'Toyota', 'Ford' etc..." tagListChange={handleCallback} autocompleteapi={sample3}/>
+      <MyAutocompleteTag placeholder="Type 'Toyota', 'Ford' etc..." tagListChange={handleCallback} autocompleteapi={sample3} duplicate={false}/>
       <hr />   
       <label>Sample 4 (Create a tag from autocomplete dropdown and input box): </label>
-      <MyAutocompleteTag placeholder="Enter your favorite car 4" tagListChange={handleCallback} autocompleteapi={sample4}/>
+      <MyAutocompleteTag placeholder="Enter your favorite car 4" tagListChange={handleCallback} autocompleteapi={sample4} duplicate={true}/>
       <hr />            
     </div>
     </>)   

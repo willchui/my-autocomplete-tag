@@ -20,8 +20,10 @@ import { MyAutocompleteTag } from '@willchui/my-autocomplete-tag'
 import '@willchui/my-autocomplete-tag/dist/index.css'
 
 const App = () => {
-  const handleCallback = (tagsList) =>{
+  const handleCallback = (tagsList, message, activeItem) =>{
     console.log(JSON.stringify(tagsList));
+    console.log(message);
+    console.log(JSON.stringify(activeItem));
   }
 
   const sample = {
@@ -90,9 +92,15 @@ const App = () => {
       <td >tagListChange </td>
       <td ><div>function</div></td>
       <td></td>
-      <td><div ><p>Callback function when a tag is created or deleted, it will return an array of tag list.</p></div></td>
+      <td><div ><p>Callback function when a tag is created or deleted, it will return an array of tag list, message and active tag.</p></div></td>
     </tr>
-   
+       <tr>
+      <td>duplicate</td>
+      <td><div>booean</div></td>
+      <td>true</td>
+      <td>
+      <div><p>Set duplicate=true, it allows duplicate tag otherwise set it to false.</p></div></td>
+    </tr>
 
     
 </tbody></table>
